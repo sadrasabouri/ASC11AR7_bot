@@ -7,6 +7,8 @@ from telegram.ext import (
     Application,
     ConversationHandler,
     CommandHandler,
+    MessageHandler,
+    filters,
 )
 
 import functions
@@ -31,11 +33,28 @@ def main() -> None:
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler("start", functions.start)],
         states={
-            ChatState.IDLE: [],
-            ChatState.APRINT: [],
-            ChatState.TPRINT: [],
+            ChatState.IDLE: [
+                CommandHandler("start", functions.start),
+                CommandHandler("help", functions.start),
+                CommandHandler("restart", functions.restart),
+                CommandHandler("aprint", functions.goto_aprint),
+                CommandHandler("tprint", functions.goto_tprint),
+                CommandHandler("showall_arts", functions.showall_arts),
+                CommandHandler("showall_fonts", functions.showall_fonts),
+                CommandHandler("space", functions.set_space),
+                CommandHandler("font", functions.set_font),
+                CommandHandler("decoration", functions.set_decoration),
+            ],
+            ChatState.APRINT: [
+                MessageHandler(filters.TEXT, functions.aprint),
+                CommandHandler("back", functions.back),
+            ],
+            ChatState.TPRINT: [
+                MessageHandler(filters.TEXT, functions.tprint),
+                CommandHandler("back", functions.back),
+            ],
         },
-        fallbacks=[],
+        fallbacks=[CommandHandler("back", functions.back)],
     )
 
     application.add_handler(conv_handler)
