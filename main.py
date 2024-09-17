@@ -30,12 +30,11 @@ def main() -> None:
     """Run the bot."""
     application = Application.builder().token(TELEGRAM_TOKEN).build()
 
-    conv_handler = ConversationHandler(
-        entry_points=[CommandHandler("start", functions.start)],
-        states={
-            ChatState.IDLE: [
+    DEFAULT_COMMANDS = [
                 CommandHandler("start", functions.start),
                 CommandHandler("help", functions.start),
+                CommandHandler("bot_version", functions.bot_version),
+                CommandHandler("art_version", functions.art_version),
                 CommandHandler("restart", functions.restart),
                 CommandHandler("aprint", functions.goto_aprint),
                 CommandHandler("tprint", functions.goto_tprint),
@@ -44,14 +43,20 @@ def main() -> None:
                 CommandHandler("space", functions.set_space),
                 CommandHandler("font", functions.set_font),
                 CommandHandler("decoration", functions.set_decoration),
-            ],
+    ]
+    conv_handler = ConversationHandler(
+        entry_points=[CommandHandler("start", functions.start)],
+        states={
+            ChatState.IDLE: DEFAULT_COMMANDS,
             ChatState.APRINT: [
-                MessageHandler(filters.TEXT, functions.aprint),
                 CommandHandler("back", functions.back),
+                *DEFAULT_COMMANDS,
+                MessageHandler(filters.TEXT, functions.aprint),
             ],
             ChatState.TPRINT: [
-                MessageHandler(filters.TEXT, functions.tprint),
                 CommandHandler("back", functions.back),
+                *DEFAULT_COMMANDS,
+                MessageHandler(filters.TEXT, functions.tprint),
             ],
         },
         fallbacks=[CommandHandler("back", functions.back)],
