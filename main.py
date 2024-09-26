@@ -47,6 +47,7 @@ def main() -> None:
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler("start", functions.start)],
         states={
+            ChatState.START: DEFAULT_COMMANDS,
             ChatState.IDLE: DEFAULT_COMMANDS,
             ChatState.APRINT: [
                 CommandHandler("back", functions.back),
