@@ -5,6 +5,7 @@ import logging
 from telegram import Update
 from telegram.ext import ContextTypes
 import art
+import time
 
 from params import VERSION
 from params import ART_VERSION_MESSAGE, BOT_VERSION_MESSAGE
@@ -12,8 +13,9 @@ from params import ChatState
 from params import TELEGRAM_MESSAGE_MAX_LENGTH
 from params import HELP_MESSAGE, BACK_MESSAGE
 from params import GOTO_APRINT_MESSAGE, GOTO_TPRINT_MESSAGE
-from params import DECORATION_ERROR_NO_DECORATION_MESSAGE
+from params import DECORATION_ERROR_NO_DECORATION_MESSAGE, SPACE_ERROR_NO_SPACE_MESSAGE, FONT_ERROR_NO_FONT_MESSAGE
 from params import APRINT_ERROR_NO_ART_FOUND_MESSAGE
+from params import ALL_ARTS
 
 logger = logging.getLogger(__name__)
 
@@ -52,6 +54,7 @@ async def art_version(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str
 async def back(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Returns to the main menu."""
     await update.message.reply_text(BACK_MESSAGE)
+    await update.message.reply_text(HELP_MESSAGE)
     logger.info(f"{update.effective_user} returned to the main menu.")
 
     return ChatState.IDLE
@@ -145,10 +148,10 @@ async def aprint(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 async def tprint(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """"Prints the text with the given font."""
     text = update.message.text
-    #TODO: Save text in user_data
+    context.user_data["text"] = text
     parameters = {}
     for x in art.text2art.__code__.co_varnames:
         if x in context.user_data:
             parameters[x] = context.user_data[x]
-    await update.message.reply_text(art.text2art(text, **parameters))
+    await update.message.reply_text(art.text2art(**parameters))
     logger.info(f"{update.effective_user} printed text.")
