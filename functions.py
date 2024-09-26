@@ -75,22 +75,23 @@ async def goto_tprint(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int
 
 async def showall_arts(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Shows all the available ASCII arts."""
-    #TODO: Use given parameters
-    result = "\n".join([f"{art_name}: {art.art(art_name)}" for art_name in art.ART_NAMES])
-    #TODO: Fix the truncation problem
-    for i in range(0, len(result), TELEGRAM_MESSAGE_MAX_LENGTH):
-        await update.message.reply_text(result[i:i+TELEGRAM_MESSAGE_MAX_LENGTH])
+    for all_art in ALL_ARTS:
+        await update.message.reply_text(all_art)
     logger.info(f"{update.effective_user} requested showing all the ASCII arts.")
 
 
 async def showall_fonts(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Shows all the available fonts."""
     #TODO: Use the current text instead of 'test'
-    #TODO: Use given parameters
-    result = "\n".join([f"{font}: {art.text2art('test', font)}" for font in art.FONT_NAMES])
-    #TODO: Fix the truncation problem
-    for i in range(0, len(result), TELEGRAM_MESSAGE_MAX_LENGTH):
-        await update.message.reply_text(result[i:i+TELEGRAM_MESSAGE_MAX_LENGTH])
+    text = context.user_data.get("text", "test")
+    ALL_FONT = ""
+    for font in art.FONT_NAMES:
+        if len(ALL_FONT) + len(f"{font}: {art.text2art(text, font)}\n") < TELEGRAM_MESSAGE_MAX_LENGTH:
+            ALL_FONT += f"{font}: {art.text2art(text, font)}\n"
+        else:
+            await update.message.reply_text(ALL_FONT)
+            ALL_FONT = f"{font}: {art.text2art(text, font)}\n"
+            time.sleep(1)
     logger.info(f"{update.effective_user} requested showing all the fonts.")
 
 

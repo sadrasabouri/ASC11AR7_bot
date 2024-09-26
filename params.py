@@ -42,3 +42,13 @@ GOTO_TPRINT_MESSAGE = "Send me a text and I will print it with a font."
 DECORATION_ERROR_NO_DECORATION_MESSAGE = "No decoration found with that name. Use /decoration <DECORATION_NAME> to set the decoration. For example: /decoration ==."
 
 APRINT_ERROR_NO_ART_FOUND_MESSAGE = "No ASCII art found with the name {0}. Run /showall_arts to see all the available ASCII arts."
+
+ALL_ARTS = []
+ALL_ART = ""
+for art_name in art.ART_NAMES:
+    if len(ALL_ART) + len(f"{art_name}: {art.art(art_name)}\n") < TELEGRAM_MESSAGE_MAX_LENGTH:
+        ALL_ART += f"{art_name}: {art.art(art_name)}\n"
+    else:
+        ALL_ARTS.append(ALL_ART)
+        ALL_ART = f"{art_name}: {art.art(art_name)}\n"
+ALL_ARTS.append(ALL_ART)
