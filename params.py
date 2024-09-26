@@ -40,6 +40,8 @@ GOTO_APRINT_MESSAGE = "Send me a art name and I will print that ASCII art for yo
 GOTO_TPRINT_MESSAGE = "Send me a text and I will print it with a font."
 
 DECORATION_ERROR_NO_DECORATION_MESSAGE = "No decoration found with that name. Use /decoration <DECORATION_NAME> to set the decoration. For example: /decoration ==."
+SPACE_ERROR_NO_SPACE_MESSAGE = "No space value found. Use /space <VALUE> to set the space between characters. For example: /space 2."
+FONT_ERROR_NO_FONT_MESSAGE = "No font found with that name. Use /font <FONT_NAME> to set the font. For example: /font random."
 
 APRINT_ERROR_NO_ART_FOUND_MESSAGE = "No ASCII art found with the name {0}. Run /showall_arts to see all the available ASCII arts."
 

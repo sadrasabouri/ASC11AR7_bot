@@ -97,20 +97,24 @@ async def showall_fonts(update: Update, context: ContextTypes.DEFAULT_TYPE) -> i
 
 async def set_space(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Sets the space between the characters in tprint and aprint."""
-    space = int(context.args[0])
-    #TODO: validation
-    context.user_data["space"] = space
-    await update.message.reply_text(f"Space between character set to {space}.")
-    logger.info(f"{update.effective_user} set the space to {space}.")
+    if len(context.args) == 0:
+        await update.message.reply_text(SPACE_ERROR_NO_SPACE_MESSAGE)
+    else:
+        space = int(context.args[0])
+        context.user_data["space"] = space
+        await update.message.reply_text(f"Space between character set to {space}.")
+        logger.info(f"{update.effective_user} set the space to {space}.")
 
 
 async def set_font(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Sets the font for tprint."""
-    font = context.args[0]
-    #TODO: validation
-    context.user_data["font"] = font
-    await update.message.reply_text(f"Font set to {font}.")
-    logger.info(f"{update.effective_user} set the font to {font}.")
+    if len(context.args) == 0:
+        await update.message.reply_text(FONT_ERROR_NO_FONT_MESSAGE)
+    else:
+        font = context.args[0]
+        context.user_data["font"] = font
+        await update.message.reply_text(f"Font set to {font}.")
+        logger.info(f"{update.effective_user} set the font to {font}.")
 
 
 async def set_decoration(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
@@ -119,7 +123,6 @@ async def set_decoration(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         await update.message.reply_text(DECORATION_ERROR_NO_DECORATION_MESSAGE)
     else:
         decoration = context.args[0]
-        #TODO: validation
         context.user_data["decoration"] = decoration
         await update.message.reply_text(f"Decoration set to {decoration}.")
         logger.info(f"{update.effective_user} set the decoration to {decoration}.")
@@ -128,7 +131,6 @@ async def set_decoration(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 async def aprint(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Prints the ASCII art."""
     art_name = update.message.text
-    #TODO: Save text in user_data
     parameters = {}
     for x in art.art.__code__.co_varnames:
         if x in context.user_data:
