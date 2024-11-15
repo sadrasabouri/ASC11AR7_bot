@@ -40,6 +40,7 @@ def main() -> None:
                 CommandHandler("tprint", functions.goto_tprint),
                 CommandHandler("showall_arts", functions.showall_arts),
                 CommandHandler("showall_fonts", functions.showall_fonts),
+                CommandHandler("showall_decors", functions.showall_decors),
                 CommandHandler("space", functions.set_space),
                 CommandHandler("font", functions.set_font),
                 CommandHandler("decoration", functions.set_decoration),

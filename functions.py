@@ -91,6 +91,14 @@ async def showall_fonts(update: Update, context: ContextTypes.DEFAULT_TYPE) -> i
     )
 
 
+async def showall_decors(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    """Shows all the available decorations."""
+    await update.message.reply_text(
+        "Check out all available decorations here: [Decoration List](https://www.ascii-art.site/DecorList.html)",
+        parse_mode="Markdown"
+    )
+
+
 async def set_space(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Sets the space between the characters in tprint and aprint."""
     if len(context.args) == 0:
