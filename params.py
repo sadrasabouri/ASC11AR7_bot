@@ -23,9 +23,9 @@ Welcome to the ASCII Art Bot! 🎨
 Send me a command to get started:
 /aprint - Print ASCII art.
 /tprint - Print text with a font.
-/showall_arts - Show all the available ASCII arts.
-/showall_fonts - Show all the available fonts.
-/showall_decors - Show all the available decorations.
+/show_all_arts - Show all the available ASCII arts.
+/show_all_fonts - Show all the available fonts.
+/show_all_decors - Show all the available decorations.
 /space <VALUE>- Set the space character.
 /font <FONT_NAME> - Set the font.
 /decoration <DECORATION_NAME> - Set the decoration.

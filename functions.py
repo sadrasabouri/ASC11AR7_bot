@@ -75,7 +75,7 @@ async def goto_tprint(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int
     return ChatState.TPRINT
 
 
-async def showall_arts(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+async def show_all_arts(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Send a link to the ASCII art site."""
     await update.message.reply_text(
         "Check out all available arts here: [ASCII Art List](https://www.ascii-art.site/ArtList.html)",
@@ -83,7 +83,7 @@ async def showall_arts(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
     )
 
 
-async def showall_fonts(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+async def show_all_fonts(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Shows all the available fonts."""
     await update.message.reply_text(
         "Check out all available fonts here: [Font List](https://www.ascii-art.site/FontList.html)",
@@ -91,7 +91,7 @@ async def showall_fonts(update: Update, context: ContextTypes.DEFAULT_TYPE) -> i
     )
 
 
-async def showall_decors(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+async def show_all_decors(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Shows all the available decorations."""
     await update.message.reply_text(
         "Check out all available decorations here: [Decoration List](https://www.ascii-art.site/DecorList.html)",
