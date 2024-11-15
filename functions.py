@@ -76,11 +76,13 @@ async def goto_tprint(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int
     return ChatState.TPRINT
 
 
-async def showall_arts(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Shows all the available ASCII arts."""
-    for all_art in ALL_ARTS:
-        await update.message.reply_text(all_art)
-    logger.info(f"{update.effective_user} requested showing all the ASCII arts.")
+async def showall_arts(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Send a link to the ASCII art site."""
+    await update.message.reply_text(
+        "Check out all available arts here: [ASCII Art List](https://www.ascii-art.site/ArtList.html)",
+        disable_web_page_preview=False,
+        parse_mode="Markdown"
+    )
 
 
 async def showall_fonts(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
