@@ -80,24 +80,16 @@ async def showall_arts(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
     """Send a link to the ASCII art site."""
     await update.message.reply_text(
         "Check out all available arts here: [ASCII Art List](https://www.ascii-art.site/ArtList.html)",
-        disable_web_page_preview=False,
         parse_mode="Markdown"
     )
 
 
 async def showall_fonts(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Shows all the available fonts."""
-    #TODO: Use the current text instead of 'test'
-    text = context.user_data.get("text", "test")
-    ALL_FONT = ""
-    for font in art.FONT_NAMES:
-        if len(ALL_FONT) + len(f"{font}: {art.text2art(text, font)}\n") < TELEGRAM_MESSAGE_MAX_LENGTH:
-            ALL_FONT += f"{font}: {art.text2art(text, font)}\n"
-        else:
-            await update.message.reply_text(ALL_FONT)
-            ALL_FONT = f"{font}: {art.text2art(text, font)}\n"
-            time.sleep(1)
-    logger.info(f"{update.effective_user} requested showing all the fonts.")
+    await update.message.reply_text(
+        "Check out all available fonts here: [Font List](https://www.ascii-art.site/FontList.html)",
+        parse_mode="Markdown"
+    )
 
 
 async def set_space(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
