@@ -14,6 +14,8 @@ class ChatState(enum.Enum):
     APRINT = 2
     TPRINT = 3
 
+DEFAULT_VALUE_REPR = "[NOT SET]"
+
 BOT_VERSION_MESSAGE = "Bot version: {0}"
 ART_VERSION_MESSAGE = "Art Library version: {0}"
 HELP_MESSAGE = """
@@ -26,6 +28,7 @@ Send me a command to get started:
 /space <VALUE>- Set the space character.
 /font <FONT_NAME> - Set the font.
 /decoration <DECORATION_NAME> - Set the decoration.
+/status - Show the current settings.
 /help - Show this message.
 /bot_version - Show the bot version.
 /art_version - Show the art library version.
@@ -44,13 +47,3 @@ SPACE_ERROR_NO_SPACE_MESSAGE = "No space value found. Use /space <VALUE> to set 
 FONT_ERROR_NO_FONT_MESSAGE = "No font found with that name. Use /font <FONT_NAME> to set the font. For example: /font random."
 
 APRINT_ERROR_NO_ART_FOUND_MESSAGE = "No ASCII art found with the name {0}. Run /showall_arts to see all the available ASCII arts."
-
-ALL_ARTS = []
-ALL_ART = ""
-for art_name in art.ART_NAMES:
-    if len(ALL_ART) + len(f"{art_name}: {art.art(art_name)}\n") < TELEGRAM_MESSAGE_MAX_LENGTH:
-        ALL_ART += f"{art_name}: {art.art(art_name)}\n"
-    else:
-        ALL_ARTS.append(ALL_ART)
-        ALL_ART = f"{art_name}: {art.art(art_name)}\n"
-ALL_ARTS.append(ALL_ART)

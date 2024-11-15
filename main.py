@@ -43,6 +43,7 @@ def main() -> None:
                 CommandHandler("space", functions.set_space),
                 CommandHandler("font", functions.set_font),
                 CommandHandler("decoration", functions.set_decoration),
+                CommandHandler("status", functions.get_status),
     ]
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler("start", functions.start)],

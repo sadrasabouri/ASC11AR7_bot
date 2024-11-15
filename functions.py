@@ -7,15 +7,14 @@ from telegram.ext import ContextTypes
 import art
 import time
 
+from params import DEFAULT_VALUE_REPR
 from params import VERSION
 from params import ART_VERSION_MESSAGE, BOT_VERSION_MESSAGE
 from params import ChatState
-from params import TELEGRAM_MESSAGE_MAX_LENGTH
 from params import HELP_MESSAGE, BACK_MESSAGE
 from params import GOTO_APRINT_MESSAGE, GOTO_TPRINT_MESSAGE
 from params import DECORATION_ERROR_NO_DECORATION_MESSAGE, SPACE_ERROR_NO_SPACE_MESSAGE, FONT_ERROR_NO_FONT_MESSAGE
 from params import APRINT_ERROR_NO_ART_FOUND_MESSAGE
-from params import ALL_ARTS
 
 logger = logging.getLogger(__name__)
 
@@ -123,6 +122,16 @@ async def set_decoration(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         context.user_data["decoration"] = decoration
         await update.message.reply_text(f"Decoration set to {decoration}.")
         logger.info(f"{update.effective_user} set the decoration to {decoration}.")
+
+
+async def get_status(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    """Shows the current settings."""
+    space = context.user_data.get("space", DEFAULT_VALUE_REPR)
+    font = context.user_data.get("font", DEFAULT_VALUE_REPR)
+    decoration = context.user_data.get("decoration", DEFAULT_VALUE_REPR)
+    text = context.user_data.get("text", DEFAULT_VALUE_REPR)
+    await update.message.reply_text(f"Space: {space}\nFont: {font}\nDecoration: {decoration}\nText: {text}")
+    logger.info(f"{update.effective_user} requested the current settings.")
 
 
 async def aprint(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
